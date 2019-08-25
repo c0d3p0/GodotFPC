@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 3, 0.1, 20 )
+
+[sub_resource type="StreamTexture" id=2]
+flags = 7
+load_path = "res://.import/gray_grid_test.png-29940592f847aa6e078636b6e1c72b2a.stex"
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_texture = SubResource( 2 )
+uv1_scale = Vector3( 6, 28, 1 )
+
+[sub_resource type="ConcavePolygonShape" id=4]
+data = PoolVector3Array( -1.5, 0.05, 10, 1.5, 0.05, 10, -1.5, -0.05, 10, 1.5, 0.05, 10, 1.5, -0.05, 10, -1.5, -0.05, 10, 1.5, 0.05, -10, -1.5, 0.05, -10, 1.5, -0.05, -10, -1.5, 0.05, -10, -1.5, -0.05, -10, 1.5, -0.05, -10, 1.5, 0.05, 10, 1.5, 0.05, -10, 1.5, -0.05, 10, 1.5, 0.05, -10, 1.5, -0.05, -10, 1.5, -0.05, 10, -1.5, 0.05, -10, -1.5, 0.05, 10, -1.5, -0.05, -10, -1.5, 0.05, 10, -1.5, -0.05, 10, -1.5, -0.05, -10, 1.5, 0.05, 10, -1.5, 0.05, 10, 1.5, 0.05, -10, -1.5, 0.05, 10, -1.5, 0.05, -10, 1.5, 0.05, -10, -1.5, -0.05, 10, 1.5, -0.05, 10, -1.5, -0.05, -10, 1.5, -0.05, 10, 1.5, -0.05, -10, -1.5, -0.05, -10 )
+
+[node name="Catwalk" type="Spatial"]
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 4 )

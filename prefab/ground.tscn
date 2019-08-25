@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 20, 0.1, 20 )
+
+[sub_resource type="StreamTexture" id=2]
+flags = 7
+load_path = "res://.import/gray_grid_test.png-29940592f847aa6e078636b6e1c72b2a.stex"
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_texture = SubResource( 2 )
+uv1_scale = Vector3( 6, 4, 5 )
+
+[sub_resource type="ConcavePolygonShape" id=4]
+data = PoolVector3Array( -10, 0.05, 10, 10, 0.05, 10, -10, -0.05, 10, 10, 0.05, 10, 10, -0.05, 10, -10, -0.05, 10, 10, 0.05, -10, -10, 0.05, -10, 10, -0.05, -10, -10, 0.05, -10, -10, -0.05, -10, 10, -0.05, -10, 10, 0.05, 10, 10, 0.05, -10, 10, -0.05, 10, 10, 0.05, -10, 10, -0.05, -10, 10, -0.05, 10, -10, 0.05, -10, -10, 0.05, 10, -10, -0.05, -10, -10, 0.05, 10, -10, -0.05, 10, -10, -0.05, -10, 10, 0.05, 10, -10, 0.05, 10, 10, 0.05, -10, -10, 0.05, 10, -10, 0.05, -10, 10, 0.05, -10, -10, -0.05, 10, 10, -0.05, 10, -10, -0.05, -10, 10, -0.05, 10, 10, -0.05, -10, -10, -0.05, -10 )
+
+[node name="Ground" type="Spatial"]
+transform = Transform( 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="StaticBody" type="StaticBody" parent="."]
+transform = Transform( 0.866026, 0.5, 0, -0.5, 0.866026, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 4 )

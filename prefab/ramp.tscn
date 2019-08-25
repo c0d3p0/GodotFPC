@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 16, 0.1, 2 )
+
+[sub_resource type="ConcavePolygonShape" id=2]
+data = PoolVector3Array( -8, 0.05, 1, 8, 0.05, 1, -8, -0.05, 1, 8, 0.05, 1, 8, -0.05, 1, -8, -0.05, 1, 8, 0.05, -1, -8, 0.05, -1, 8, -0.05, -1, -8, 0.05, -1, -8, -0.05, -1, 8, -0.05, -1, 8, 0.05, 1, 8, 0.05, -1, 8, -0.05, 1, 8, 0.05, -1, 8, -0.05, -1, 8, -0.05, 1, -8, 0.05, -1, -8, 0.05, 1, -8, -0.05, -1, -8, 0.05, 1, -8, -0.05, 1, -8, -0.05, -1, 8, 0.05, 1, -8, 0.05, 1, 8, 0.05, -1, -8, 0.05, 1, -8, 0.05, -1, 8, 0.05, -1, -8, -0.05, 1, 8, -0.05, 1, -8, -0.05, -1, 8, -0.05, 1, 8, -0.05, -1, -8, -0.05, -1 )
+
+[node name="Ramp" type="Spatial"]
+transform = Transform( 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 2 )

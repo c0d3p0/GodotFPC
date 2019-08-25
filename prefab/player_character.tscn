@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://source/character/CharacterInitializer.cs" type="Script" id=1]
+[ext_resource path="res://source/character/CharacterInput.cs" type="Script" id=2]
+[ext_resource path="res://source/character/CharacterCrouch.cs" type="Script" id=3]
+[ext_resource path="res://source/character/CharacterLook.cs" type="Script" id=4]
+[ext_resource path="res://source/character/CharacterMove.cs" type="Script" id=5]
+[ext_resource path="res://source/character/CharacterLadder.cs" type="Script" id=6]
+[ext_resource path="res://source/character/CharacterJump.cs" type="Script" id=7]
+[ext_resource path="res://source/character/CharacterPhysics.cs" type="Script" id=8]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.4
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.3, 0.9, 0.3 )
+
+[node name="PlayerCharacter" type="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+shape = SubResource( 2 )
+
+[node name="Head" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0 )
+
+[node name="Camera" type="Camera" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2 )
+
+[node name="RayCast" type="RayCast" parent="Head"]
+enabled = true
+cast_to = Vector3( 0, 0.81, 0 )
+
+[node name="Code" type="Node" parent="."]
+
+[node name="CharacterInitializer" type="Node" parent="Code"]
+script = ExtResource( 1 )
+characterPhysicsNP = NodePath("../CharacterPhysics")
+characterInputNP = NodePath("../CharacterInput")
+characterMoveNP = NodePath("../CharacterMove")
+characterLookNP = NodePath("../CharacterLook")
+characterLadderNP = NodePath("../CharacterLadder")
+characterJumpNP = NodePath("../CharacterJump")
+characterCrouchNP = NodePath("../CharacterCrouch")
+kinematicBodyNP = NodePath("../..")
+headNP = NodePath("../../Head")
+
+[node name="CharacterInput" type="Node" parent="Code"]
+script = ExtResource( 2 )
+
+[node name="CharacterCrouch" type="Node" parent="Code"]
+script = ExtResource( 3 )
+kinematicBodyNP = NodePath("../..")
+headNP = NodePath("../../Head")
+headRayCastNP = NodePath("../../Head/RayCast")
+physicCollisionShapeNP = NodePath("../../CollisionShape")
+interactionCollisionShapeNP = NodePath("../../Area/CollisionShape")
+
+[node name="CharacterLook" type="Node" parent="Code"]
+script = ExtResource( 4 )
+headNP = NodePath("../../Head")
+
+[node name="CharacterMove" type="Node" parent="Code"]
+script = ExtResource( 5 )
+headNP = NodePath("../../Head")
+
+[node name="CharacterLadder" type="Node" parent="Code"]
+script = ExtResource( 6 )
+kinematicBodyNP = NodePath("../..")
+headNP = NodePath("../../Head")
+
+[node name="CharacterJump" type="Node" parent="Code"]
+script = ExtResource( 7 )
+kinematicBodyNP = NodePath("../..")
+
+[node name="CharacterPhysics" type="Node" parent="Code"]
+script = ExtResource( 8 )
+kinematicBodyNP = NodePath("../..")
+[connection signal="area_entered" from="Area" to="Code/CharacterLadder" method="OnAreaEntered"]
+[connection signal="area_exited" from="Area" to="Code/CharacterLadder" method="OnAreaExited"]
