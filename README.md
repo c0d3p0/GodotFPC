@@ -15,4 +15,4 @@ Ladder Climbing.
 
 Bugs:<br />
 When stading on slopes, it slides a little bit.<br />
-Character flies after finishing climbing a ladder.
+Character flies a little bit after finishing climbing a ladder.
