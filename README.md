@@ -14,5 +14,5 @@ Ladder Climbing.
 <br />
 
 Issues:<br />
-When stading on slopes, it slides a little bit.<br />
-Character flies a little bit after finishing climbing a ladder.
+Character slides a little bit when stading on slopes, .<br />
+Character flies a little after finishing climbing a ladder.
