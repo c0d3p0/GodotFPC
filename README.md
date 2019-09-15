@@ -25,6 +25,7 @@ A first person character controller developed using Godot Engine and C# as scrip
 - Climb ladders <br/>
 - A fire weapon template with a shooting system using ray tracing and other features like manual/automatic trigger, artificial recoil, fire rate, clip capacity and reload time.
 - A bullet hole effect management.
+- A display layer that shows an aim and data about the item equipped.
 <br/>
 
 
