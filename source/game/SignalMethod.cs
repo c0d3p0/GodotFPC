@@ -1,16 +1,29 @@
 public class SignalMethod
 {
+    public const string SET_GLOBAL_SIGNAL = "SetGlobalSignal";
+
+
     public const string GET_DIRECTION = "GetDirection";
     public const string GET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY =
             "GetMoveAndSlideWithSnapVelocity";
     public const string GET_MOVE_AND_SLIDE_VELOCITY = "GetMoveAndSlideVelocity";
 
 
-    public const string SET_DATA = "SetData";
-    public const string SET_FORCE_CROUCH_SPEED = "SetForceCrouchSpeed";
+	public const string IS_CROUCHED = "IsCrouched";
     public const string SET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY =
             "SetMoveAndSlideWithSnapVelocity";
     public const string SET_MOVE_AND_SLIDE_VELOCITY = "SetMoveAndSlideVelocity";
     public const string SET_DESIRED_TRANSLATION = "SetDesiredTranslation";
     public const string SET_GRAVITY_ENABLED = "SetGravityEnabled";
+
+
+    public const string SET_EQUIPPED = "SetEquipped";
+    public const string SET_CHARACTER_BODY_AND_HEAD = "SetCharacterBodyAndHead";
+
+
+    public const string ON_WEAPON_DAMAGE = "OnWeaponDamage";
+	public const string ON_WEAPON_DATA_CHANGED = "OnWeaponDataChanged";
+
+
+	public const string SET_WORLD = "SetWorld";
 }

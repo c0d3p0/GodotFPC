@@ -24,10 +24,13 @@ public class CharacterMove : Node
 
     private float GetMoveSpeed()
     {
-        if(Input.IsActionPressed(PlayerInput.P1_WALK) || forceCrouchSpeed)
+        if(Input.IsActionPressed(PlayerInput.P1_WALK) ||
+                SignalUtil.Emit<bool>(this, SignalKey.IS_CROUCHED))
+        {
             return walkSpeed;
-        else
-            return runSpeed;
+        }
+
+        return runSpeed;
     }
 
     private float GetAcceleration()
@@ -38,6 +41,15 @@ public class CharacterMove : Node
             return deacceleration;
     }
 
+    private void Initialize()
+    {
+        head = GetNode<Spatial>(headNP);
+        AddUserSignal(SignalKey.GET_DIRECTION);
+        AddUserSignal(SignalKey.GET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY);
+        AddUserSignal(SignalKey.SET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY);
+        AddUserSignal(SignalKey.IS_CROUCHED);
+    }
+
     public override void _PhysicsProcess(float physicsDelta)
     {
         ApplyMovement(physicsDelta);
@@ -45,12 +57,7 @@ public class CharacterMove : Node
 
     public override void _EnterTree()
     {
-        head = GetNode<Spatial>(headNP);
-    }
-
-    public void SetForceCrouchSpeed(bool forceCrouchSpeed)
-    {
-        this.forceCrouchSpeed = forceCrouchSpeed;
+        Initialize();
     }
 
 
@@ -77,5 +84,4 @@ public class CharacterMove : Node
     private Vector3 direction;
 
     private float diagonalMoveFactor = 0.7071f;
-    private bool forceCrouchSpeed;
 }

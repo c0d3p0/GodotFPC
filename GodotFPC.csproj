@@ -58,9 +58,21 @@
     <Compile Include="source\character\CharacterJump.cs" />
     <Compile Include="source\character\CharacterMove.cs" />
     <Compile Include="source\character\CharacterPhysics.cs" />
-    <Compile Include="source\Game\PlayerInput.cs" />
-    <Compile Include="source\Game\SignalKey.cs" />
-    <Compile Include="source\Game\SignalMethod.cs" />
+    <Compile Include="source\character\CharacterItem.cs" />
+    <Compile Include="source\game\GDMethod.cs" />
+    <Compile Include="source\game\NodeGroup.cs" />
+    <Compile Include="source\game\ParameterKey.cs" />
+    <Compile Include="source\game\PlayerInput.cs" />
+    <Compile Include="source\game\SignalKey.cs" />
+    <Compile Include="source\game\SignalMethod.cs" />
+    <Compile Include="source\hud\PlayerHUD.cs" />
+    <Compile Include="source\hud\PlayerHUDInitializer.cs" />
+    <Compile Include="source\item\FireWeapon.cs" />
+    <Compile Include="source\item\Hand.cs" />
+    <Compile Include="source\item\Item.cs" />
+    <Compile Include="source\item\ItemInitializer.cs" />
+    <Compile Include="source\item\WeaponDamageEffect.cs" />
+    <Compile Include="source\item\WeaponDamageEffectInitializer.cs" />
     <Compile Include="source\util\SignalInfo.cs" />
     <Compile Include="source\util\SignalUtil.cs" />
   </ItemGroup>

@@ -23,22 +23,21 @@ public class CharacterCrouch : Node
 
     private void SetCrouchFlags(bool active)
     {
-        crouch = active;
-        EmitSignal(SignalKey.SET_FORCE_CROUCH_SPEED, active);
+        crouched = active;
     }
 
     private void ExecuteCrouchOrUncrouch()
     {
         if(Input.IsActionPressed(PlayerInput.P1_CROUCH) && kinematicBody.IsOnFloor())
         {
-            if(!crouch)
+            if(!crouched)
             {
                 SetShapesHeight(crouchHeight);
                 SetTranslationY(-1);
                 SetCrouchFlags(true);
             }
         }
-        else if(crouch && !headRayCast.IsColliding())
+        else if(crouched && !headRayCast.IsColliding())
         {
             SetTranslationY(1);
             SetShapesHeight(standHeight);
@@ -48,6 +47,7 @@ public class CharacterCrouch : Node
 
     private void Initialize()
     {
+        AddUserSignal(SignalKey.SET_DESIRED_TRANSLATION);
         kinematicBody = GetNode<KinematicBody>(kinematicBodyNP);
         head = GetNode<Spatial>(headNP);
         headRayCast = GetNode<RayCast>(headRayCastNP);
@@ -55,6 +55,11 @@ public class CharacterCrouch : Node
                 Shape as CapsuleShape;
         interactionShape = GetNode<CollisionShape>(interactionCollisionShapeNP).
                 Shape as BoxShape;
+    }
+
+    public void IsCrouched(Godot.Object response)
+    {
+        response.EmitSignal(SignalKey.SET_DATA, crouched);
     }
 
     public override void _PhysicsProcess(float physicsDelta)
@@ -98,6 +103,5 @@ public class CharacterCrouch : Node
     private CapsuleShape physicShape;
     private BoxShape interactionShape;
 
-    private bool crouch;
-    private Vector3 auxVector3;
+    private bool crouched;
 }

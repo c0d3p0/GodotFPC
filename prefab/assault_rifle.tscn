@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://source/item/FireWeapon.cs" type="Script" id=1]
+[ext_resource path="res://source/item/ItemInitializer.cs" type="Script" id=2]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.3, 0.3, 0.3 )
+
+[node name="AssaultRifle" type="Spatial"]
+
+[node name="TrajectoryRayCast" type="RayCast" parent="."]
+cast_to = Vector3( 0, 0, -100 )
+collide_with_areas = true
+
+[node name="FireRateTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="ReloadTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+shape = SubResource( 1 )
+
+[node name="Code" type="Node" parent="."]
+
+[node name="FireWeapon" type="Node" parent="Code"]
+script = ExtResource( 1 )
+rootNodeNP = NodePath("../..")
+recoilRecoverStep = Vector2( 2.3, 3.1 )
+fireRate = 0.09
+reloadTime = 2.0
+clipSize = 30
+maximumAmmoAmount = 90000
+clipAmmoAmount = 30
+ammoAmount = 90000
+automatic = true
+trajectoryRayCastNP = NodePath("../../TrajectoryRayCast")
+fireRateTimerNP = NodePath("../../FireRateTimer")
+reloadTimerNP = NodePath("../../ReloadTimer")
+
+[node name="FireWeaponInitializer" type="Node" parent="Code"]
+script = ExtResource( 2 )
+rootNodeNP = NodePath("../..")
+itemNP = NodePath("../FireWeapon")
+[connection signal="timeout" from="ReloadTimer" to="Code/FireWeapon" method="OnReloadTimeout"]

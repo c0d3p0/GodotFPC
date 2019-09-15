@@ -16,9 +16,10 @@ public class SignalInfo : Godot.Object
         return dataReceived;
     }
 
-    public void SetDataReceived(bool dataReceived)
+    public void Clear()
     {
-        this.dataReceived = dataReceived;
+        this.dataReceived = false;
+        data = null;
     }
 
     public SignalInfo()

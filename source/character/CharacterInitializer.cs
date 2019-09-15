@@ -3,27 +3,19 @@ using Godot;
 
 public class CharacterInitializer : Node
 {
-    private void InitializeNodes()
+    private void Initialize()
     {
-        head = GetNode<Spatial>(headNP);
-        kinematicBody = GetNode<KinematicBody>(kinematicBodyNP);
-        characterInput = GetNode<CharacterInput>(characterInputNP);
-        characterCrouch = GetNode<CharacterCrouch>(characterCrouchNP);
-        characterLook = GetNode<CharacterLook>(characterLookNP);
-        characterMove = GetNode<CharacterMove>(characterMoveNP);
-        characterLadder = GetNode<CharacterLadder>(characterLadderNP);
-        characterJump = GetNode<CharacterJump>(characterJumpNP);
-        characterPhysics = GetNode<CharacterPhysics>(characterPhysicsNP);
+        characterInput = GetNode(characterInputNP);
+        characterCrouch = GetNode(characterCrouchNP);
+        characterLook = GetNode(characterLookNP);
+        characterMove = GetNode(characterMoveNP);
+        characterLadder = GetNode(characterLadderNP);
+        characterJump = GetNode(characterJumpNP);
+        characterPhysics = GetNode(characterPhysicsNP);
     }
 
-    private void InitializeCharacterMove()
+    private void InitializeCharacterLadder()
     {
-        characterLadder.AddUserSignal(SignalKey.GET_DIRECTION);
-        characterLadder.AddUserSignal(SignalKey.SET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY);
-        characterLadder.AddUserSignal(SignalKey.GET_MOVE_AND_SLIDE_VELOCITY);
-        characterLadder.AddUserSignal(SignalKey.SET_MOVE_AND_SLIDE_VELOCITY);
-        characterLadder.AddUserSignal(SignalKey.SET_GRAVITY_ENABLED);
-
         characterLadder.Connect(SignalKey.GET_DIRECTION,
                 characterInput, SignalMethod.GET_DIRECTION);
         characterLadder.Connect(SignalKey.SET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY,
@@ -36,25 +28,20 @@ public class CharacterInitializer : Node
                 characterPhysics, SignalMethod.SET_GRAVITY_ENABLED);
     }
 
-    private void InitializeCharacterLadder()
+    private void InitializeCharacterMove()
     {
-        characterMove.AddUserSignal(SignalKey.GET_DIRECTION);
-        characterMove.AddUserSignal(SignalKey.GET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY);
-        characterMove.AddUserSignal(SignalKey.SET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY);
-
         characterMove.Connect(SignalKey.GET_DIRECTION,
                 characterInput, SignalMethod.GET_DIRECTION);
         characterMove.Connect(SignalKey.GET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY,
                 characterPhysics, SignalMethod.GET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY);
         characterMove.Connect(SignalKey.SET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY,
                 characterPhysics, SignalMethod.SET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY);
+        characterMove.Connect(SignalKey.IS_CROUCHED, characterCrouch,
+				SignalMethod.IS_CROUCHED);
     }
 
     private void InitializeCharacterJump()
     {
-        characterJump.AddUserSignal(SignalKey.GET_MOVE_AND_SLIDE_VELOCITY);
-        characterJump.AddUserSignal(SignalKey.SET_MOVE_AND_SLIDE_VELOCITY);
-
         characterJump.Connect(SignalKey.GET_MOVE_AND_SLIDE_VELOCITY,
                 characterPhysics, SignalMethod.GET_MOVE_AND_SLIDE_VELOCITY);
         characterJump.Connect(SignalKey.SET_MOVE_AND_SLIDE_VELOCITY,
@@ -63,20 +50,15 @@ public class CharacterInitializer : Node
 
     private void InitializeCharacterCrouch()
     {
-        characterCrouch.AddUserSignal(SignalKey.SET_DESIRED_TRANSLATION);
-        characterCrouch.AddUserSignal(SignalKey.SET_FORCE_CROUCH_SPEED);
-
         characterCrouch.Connect(SignalKey.SET_DESIRED_TRANSLATION,
                 characterPhysics, SignalMethod.SET_DESIRED_TRANSLATION);
-        characterCrouch.Connect(SignalKey.SET_FORCE_CROUCH_SPEED,
-                characterMove, SignalMethod.SET_FORCE_CROUCH_SPEED);
     }
 
     public override void _EnterTree()
     {
-        InitializeNodes();
-        InitializeCharacterMove();
+        Initialize();
         InitializeCharacterLadder();
+        InitializeCharacterMove();
         InitializeCharacterJump();
         InitializeCharacterCrouch();
     }
@@ -103,21 +85,12 @@ public class CharacterInitializer : Node
     [Export]
     public NodePath characterCrouchNP;
 
-    [Export]
-    public NodePath kinematicBodyNP;
-    
-    [Export]
-    public NodePath headNP;
 
-
-    private CharacterPhysics characterPhysics; 
-    private CharacterMove characterMove;
-    private CharacterLook characterLook;
-    private CharacterLadder characterLadder;
-    private CharacterJump characterJump;
-    private CharacterCrouch characterCrouch;
-    private CharacterInput characterInput;
-
-    private KinematicBody kinematicBody;
-    private Spatial head;
+    private Node characterPhysics; 
+    private Node characterMove;
+    private Node characterLook;
+    private Node characterLadder;
+    private Node characterJump;
+    private Node characterCrouch;
+    private Node characterInput;
 }

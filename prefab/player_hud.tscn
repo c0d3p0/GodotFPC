@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://font/default_28.tres" type="DynamicFont" id=1]
+[ext_resource path="res://font/default_36.tres" type="DynamicFont" id=2]
+[ext_resource path="res://source/hud/PlayerHUD.cs" type="Script" id=3]
+[ext_resource path="res://source/hud/PlayerHUDInitializer.cs" type="Script" id=4]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/aim.png-98da8323433a7da52d29c51f65614ac8.stex"
+
+[node name="PlayerHUD" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Aim" type="TextureRect" parent="."]
+margin_left = 492.0
+margin_top = 280.0
+margin_right = 592.0
+margin_bottom = 380.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = SubResource( 1 )
+
+[node name="WeaponsStats" type="Control" parent="."]
+margin_left = 815.0
+margin_top = 500.0
+margin_right = 1015.0
+margin_bottom = 590.0
+
+[node name="Reloading" type="Label" parent="WeaponsStats"]
+visible = false
+margin_left = 51.0
+margin_right = 193.0
+margin_bottom = 29.0
+custom_fonts/font = ExtResource( 1 )
+text = "Reloading"
+align = 2
+
+[node name="WeaponName" type="Label" parent="WeaponsStats"]
+margin_left = 16.0
+margin_top = 30.0
+margin_right = 200.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 1 )
+text = "Assault Rifle"
+align = 2
+
+[node name="AmmoLabel" type="Label" parent="WeaponsStats"]
+margin_top = 60.0
+margin_right = 200.0
+margin_bottom = 97.0
+custom_fonts/font = ExtResource( 2 )
+text = "300"
+align = 2
+
+[node name="Code" type="Node" parent="."]
+
+[node name="PlayerHUD" type="Node" parent="Code"]
+script = ExtResource( 3 )
+aimTextureRectNP = NodePath("../../Aim")
+weaponNameLabelNP = NodePath("../../WeaponsStats/WeaponName")
+ammoLabelNP = NodePath("../../WeaponsStats/AmmoLabel")
+reloadingLabelNP = NodePath("../../WeaponsStats/Reloading")
+
+[node name="PlayerHUDInitializer" type="Node" parent="Code"]
+script = ExtResource( 4 )
+playerHUDNP = NodePath("../PlayerHUD")

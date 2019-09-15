@@ -18,6 +18,8 @@ public class CharacterJump : Node
     private void Initialize()
     {
         kinematicBody = GetNode<KinematicBody>(kinematicBodyNP);
+        AddUserSignal(SignalKey.GET_MOVE_AND_SLIDE_VELOCITY);
+        AddUserSignal(SignalKey.SET_MOVE_AND_SLIDE_VELOCITY);
     }
 
     public override void _PhysicsProcess(float physicsDelta)

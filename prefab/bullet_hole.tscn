@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="QuadMesh" id=1]
+size = Vector2( 0.09, 0.09 )
+
+[sub_resource type="StreamTexture" id=2]
+flags = 5
+load_path = "res://.import/bullet_hole.png-b30dbbedff8cd93df78d481de1656eac.stex"
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+albedo_texture = SubResource( 2 )
+
+[node name="BulletHole" type="Spatial" groups=[
+"item_damage_effect",
+]]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )

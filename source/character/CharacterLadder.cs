@@ -13,7 +13,7 @@ public class CharacterLadder : Node
             targetVelocity += direction.x * headBasis.x;
             targetVelocity += direction.z * headBasis.z;
             targetVelocity = targetVelocity.Normalized();
-            targetVelocity.y = GetMovementDirectionNormalized();
+            targetVelocity.y = GetFixedMovementDirection();
             targetVelocity *= ladderSpeed;
 
             if(!kinematicBody.IsOnFloor())
@@ -42,7 +42,7 @@ public class CharacterLadder : Node
             return deacceleration;
     }
 
-    private float GetMovementDirectionNormalized()
+    private float GetFixedMovementDirection()
     {
         if(targetVelocity.y < 0)
             return Mathf.Floor(targetVelocity.y);
@@ -50,25 +50,10 @@ public class CharacterLadder : Node
             return Mathf.Ceil(targetVelocity.y);
     }
 
-    private bool GetLadder(Area area)
-    {
-        Spatial ladder = area.GetParentOrNull<Spatial>();
-        
-        if(ladder != null && ladder.GetName().Contains("Ladder"))
-        {
-            this.ladder = ladder;
-            return true;
-        }
-
-        return false;
-    }
-
     private void AttachToLadder(Area area)
     {
-        Spatial obj = area.GetParentOrNull<Spatial>();
-
-        if(obj != null && obj.GetName().Contains("Ladder"))
-            ladder = obj;
+        if(area.IsInGroup(NodeGroup.LADDER))
+            this.ladder = area.GetParent<Spatial>();
     }
 
     private void DetachFromLadder(Area area)
@@ -86,6 +71,11 @@ public class CharacterLadder : Node
     {
         kinematicBody = GetNode<KinematicBody>(kinematicBodyNP);
         head = GetNode<Spatial>(headNP);
+        AddUserSignal(SignalKey.GET_DIRECTION);
+        AddUserSignal(SignalKey.SET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY);
+        AddUserSignal(SignalKey.GET_MOVE_AND_SLIDE_VELOCITY);
+        AddUserSignal(SignalKey.SET_MOVE_AND_SLIDE_VELOCITY);
+        AddUserSignal(SignalKey.SET_GRAVITY_ENABLED);
     }
 
     public override void _PhysicsProcess(float physicsDelta)

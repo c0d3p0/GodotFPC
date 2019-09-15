@@ -1,13 +1,17 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://source/character/CharacterInitializer.cs" type="Script" id=1]
-[ext_resource path="res://source/character/CharacterInput.cs" type="Script" id=2]
-[ext_resource path="res://source/character/CharacterCrouch.cs" type="Script" id=3]
-[ext_resource path="res://source/character/CharacterLook.cs" type="Script" id=4]
-[ext_resource path="res://source/character/CharacterMove.cs" type="Script" id=5]
-[ext_resource path="res://source/character/CharacterLadder.cs" type="Script" id=6]
-[ext_resource path="res://source/character/CharacterJump.cs" type="Script" id=7]
-[ext_resource path="res://source/character/CharacterPhysics.cs" type="Script" id=8]
+[ext_resource path="res://source/character/CharacterInput.cs" type="Script" id=1]
+[ext_resource path="res://source/character/CharacterItem.cs" type="Script" id=2]
+[ext_resource path="res://prefab/assault_rifle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefab/pistol.tscn" type="PackedScene" id=4]
+[ext_resource path="res://prefab/hand.tscn" type="PackedScene" id=5]
+[ext_resource path="res://source/character/CharacterCrouch.cs" type="Script" id=6]
+[ext_resource path="res://source/character/CharacterLook.cs" type="Script" id=7]
+[ext_resource path="res://source/character/CharacterMove.cs" type="Script" id=8]
+[ext_resource path="res://source/character/CharacterLadder.cs" type="Script" id=9]
+[ext_resource path="res://source/character/CharacterJump.cs" type="Script" id=10]
+[ext_resource path="res://source/character/CharacterPhysics.cs" type="Script" id=11]
+[ext_resource path="res://source/character/CharacterInitializer.cs" type="Script" id=12]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.4
@@ -15,19 +19,25 @@ radius = 0.4
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.3, 0.9, 0.3 )
 
-[node name="PlayerCharacter" type="KinematicBody"]
+[node name="PlayerCharacter" type="KinematicBody" groups=[
+"player_character",
+]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 1 )
 
-[node name="Area" type="Area" parent="."]
+[node name="Area" type="Area" parent="." groups=[
+"player_character",
+]]
+editor/display_folded = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 shape = SubResource( 2 )
 
 [node name="Head" type="Spatial" parent="."]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0 )
 
 [node name="Camera" type="Camera" parent="Head"]
@@ -37,25 +47,24 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2 )
 enabled = true
 cast_to = Vector3( 0, 0.81, 0 )
 
+[node name="Items" type="Spatial" parent="."]
+
 [node name="Code" type="Node" parent="."]
 
-[node name="CharacterInitializer" type="Node" parent="Code"]
+[node name="CharacterInput" type="Node" parent="Code"]
 script = ExtResource( 1 )
-characterPhysicsNP = NodePath("../CharacterPhysics")
-characterInputNP = NodePath("../CharacterInput")
-characterMoveNP = NodePath("../CharacterMove")
-characterLookNP = NodePath("../CharacterLook")
-characterLadderNP = NodePath("../CharacterLadder")
-characterJumpNP = NodePath("../CharacterJump")
-characterCrouchNP = NodePath("../CharacterCrouch")
+
+[node name="CharacterItem" type="Node" parent="Code"]
+script = ExtResource( 2 )
+itemsNP = NodePath("../../Items")
 kinematicBodyNP = NodePath("../..")
 headNP = NodePath("../../Head")
-
-[node name="CharacterInput" type="Node" parent="Code"]
-script = ExtResource( 2 )
+assaultRiflePrefab = ExtResource( 3 )
+pistolPrefab = ExtResource( 4 )
+handPrefab = ExtResource( 5 )
 
 [node name="CharacterCrouch" type="Node" parent="Code"]
-script = ExtResource( 3 )
+script = ExtResource( 6 )
 kinematicBodyNP = NodePath("../..")
 headNP = NodePath("../../Head")
 headRayCastNP = NodePath("../../Head/RayCast")
@@ -63,24 +72,34 @@ physicCollisionShapeNP = NodePath("../../CollisionShape")
 interactionCollisionShapeNP = NodePath("../../Area/CollisionShape")
 
 [node name="CharacterLook" type="Node" parent="Code"]
-script = ExtResource( 4 )
+script = ExtResource( 7 )
 headNP = NodePath("../../Head")
 
 [node name="CharacterMove" type="Node" parent="Code"]
-script = ExtResource( 5 )
+script = ExtResource( 8 )
 headNP = NodePath("../../Head")
 
 [node name="CharacterLadder" type="Node" parent="Code"]
-script = ExtResource( 6 )
+script = ExtResource( 9 )
 kinematicBodyNP = NodePath("../..")
 headNP = NodePath("../../Head")
 
 [node name="CharacterJump" type="Node" parent="Code"]
-script = ExtResource( 7 )
+script = ExtResource( 10 )
 kinematicBodyNP = NodePath("../..")
 
 [node name="CharacterPhysics" type="Node" parent="Code"]
-script = ExtResource( 8 )
+script = ExtResource( 11 )
 kinematicBodyNP = NodePath("../..")
+
+[node name="CharacterInitializer" type="Node" parent="Code"]
+script = ExtResource( 12 )
+characterPhysicsNP = NodePath("../CharacterPhysics")
+characterInputNP = NodePath("../CharacterInput")
+characterMoveNP = NodePath("../CharacterMove")
+characterLookNP = NodePath("../CharacterLook")
+characterLadderNP = NodePath("../CharacterLadder")
+characterJumpNP = NodePath("../CharacterJump")
+characterCrouchNP = NodePath("../CharacterCrouch")
 [connection signal="area_entered" from="Area" to="Code/CharacterLadder" method="OnAreaEntered"]
 [connection signal="area_exited" from="Area" to="Code/CharacterLadder" method="OnAreaExited"]

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://source/item/Hand.cs" type="Script" id=1]
+[ext_resource path="res://source/item/ItemInitializer.cs" type="Script" id=2]
+
+[node name="Hand" type="Spatial"]
+
+[node name="TrajectoryRayCast" type="RayCast" parent="."]
+cast_to = Vector3( 0, 0, -100 )
+collide_with_areas = true
+
+[node name="Code" type="Node" parent="."]
+
+[node name="Hand" type="Node" parent="Code"]
+script = ExtResource( 1 )
+rootNodeNP = NodePath("../..")
+
+[node name="ItemInitializer" type="Node" parent="Code"]
+script = ExtResource( 2 )
+rootNodeNP = NodePath("../..")
+itemNP = NodePath("../Hand")
