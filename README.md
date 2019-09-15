@@ -17,7 +17,7 @@ Press R to reload a firearm. <br/>
 
 
 **Features**
-<br/><br/>
+<br/>
 - Run/walk <br/>
 - Look <br/>
 - Crouch <br/>
