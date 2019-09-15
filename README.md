@@ -23,7 +23,7 @@ A first person character controller developed using Godot Engine and C# as scrip
 - Crouch <br/>
 - Jump <br/>
 - Climb ladders <br/>
-- A fire weapon template with a shooting system using ray tracing and other features like recoil, manual/automatic trigger, fire rate, clip capacity, reload timing.
+- A fire weapon template with a shooting system using ray tracing and other features like manual/automatic trigger, artificial recoil, fire rate, clip capacity and reload time.
 - A bullet hole effect management.
 <br/>
 
