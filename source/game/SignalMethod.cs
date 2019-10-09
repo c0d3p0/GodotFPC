@@ -4,12 +4,14 @@ public class SignalMethod
 
 
     public const string GET_DIRECTION = "GetDirection";
+
+
+    public const string SET_FORCED_MOVE_SPEED = "SetForcedMoveSpeed";
+
+
     public const string GET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY =
             "GetMoveAndSlideWithSnapVelocity";
     public const string GET_MOVE_AND_SLIDE_VELOCITY = "GetMoveAndSlideVelocity";
-
-
-	public const string IS_CROUCHED = "IsCrouched";
     public const string SET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY =
             "SetMoveAndSlideWithSnapVelocity";
     public const string SET_MOVE_AND_SLIDE_VELOCITY = "SetMoveAndSlideVelocity";

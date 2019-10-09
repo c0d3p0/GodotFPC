@@ -3,11 +3,11 @@
 [ext_resource path="res://prefab/player_hud.tscn" type="PackedScene" id=1]
 [ext_resource path="res://prefab/ground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://prefab/wall.tscn" type="PackedScene" id=3]
-[ext_resource path="res://prefab/ladder.tscn" type="PackedScene" id=4]
-[ext_resource path="res://prefab/ramp.tscn" type="PackedScene" id=5]
-[ext_resource path="res://prefab/catwalk.tscn" type="PackedScene" id=6]
-[ext_resource path="res://prefab/player_character.tscn" type="PackedScene" id=7]
-[ext_resource path="res://prefab/weapon_damage_effect.tscn" type="PackedScene" id=8]
+[ext_resource path="res://prefab/catwalk.tscn" type="PackedScene" id=4]
+[ext_resource path="res://prefab/ladder.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefab/player_character.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prefab/weapon_damage_effect.tscn" type="PackedScene" id=7]
+[ext_resource path="res://prefab/ramp.tscn" type="PackedScene" id=8]
 
 [node name="World" type="Spatial"]
 
@@ -27,22 +27,22 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 9.9
 [node name="WallBottom" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.95, 10.05 )
 
-[node name="LadderRight1" parent="." instance=ExtResource( 4 )]
+[node name="LadderRight1" parent="." instance=ExtResource( 5 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.95, 4, -5 )
 
-[node name="LadderRight2" parent="." instance=ExtResource( 4 )]
+[node name="LadderRight2" parent="." instance=ExtResource( 5 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.95, 4, 5 )
 
-[node name="Ramp" parent="." instance=ExtResource( 5 )]
+[node name="Ramp" parent="." instance=ExtResource( 8 )]
 transform = Transform( 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0.1, 4, -9 )
 
-[node name="CatwalkTopRight" parent="." instance=ExtResource( 6 )]
+[node name="CatwalkTopRight" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 7.992, 0 )
 
-[node name="CatwalkBottom" parent="." instance=ExtResource( 6 )]
+[node name="CatwalkBottom" parent="." instance=ExtResource( 4 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.32, 8.5 )
 
-[node name="PlayerCharacter" parent="." instance=ExtResource( 7 )]
+[node name="PlayerCharacter" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0 )
 
-[node name="WeaponDamageEffect" parent="." instance=ExtResource( 8 )]
+[node name="WeaponDamageEffect" parent="." instance=ExtResource( 7 )]

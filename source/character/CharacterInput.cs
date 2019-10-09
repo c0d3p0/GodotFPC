@@ -16,10 +16,16 @@ public class CharacterInput : Node
             return 0;
     }
 
+    private void UpdateDirection()
+    {
+        direction.x = ComputeDirection(PlayerInput.P1_RIGHT, PlayerInput.P1_LEFT);
+        direction.y = 0f;
+        direction.z = ComputeDirection(PlayerInput.P1_DOWN, PlayerInput.P1_UP);
+    }
+
     public override void _PhysicsProcess(float delta)
     {
-        direction.Set(ComputeDirection(PlayerInput.P1_RIGHT, PlayerInput.P1_LEFT), 0f,
-                ComputeDirection(PlayerInput.P1_DOWN, PlayerInput.P1_UP));
+        UpdateDirection();
     }
 
     public void GetDirection(Godot.Object response)

@@ -25,15 +25,15 @@ public class WeaponDamageEffect : Node
             if(damaged.IsInGroup(NodeGroup.STATIC_OBJECT))
             {
                 Spatial effect = weaponDamageEffectPrefab.Instance() as Spatial;
-                effect.SetName(effect.GetName() + effect.GetInstanceId());
+                effect.Name = effect.Name + effect.GetInstanceId();
                 world.AddChild(effect);
                 damageEffectList.Add(effect);
-                collisionNormal.Set(((Vector3) paramMap[ParameterKey.COLLISION_NORMAL]));
-                lookAtDirection.Set(collisionNormal.y != -1 ? Vector3.Up : Vector3.Forward);
+                collisionNormal = ((Vector3) paramMap[ParameterKey.COLLISION_NORMAL]);
+                lookAtDirection = collisionNormal.y != -1 ? Vector3.Up : Vector3.Forward;
                 effect.LookAt(-collisionNormal, lookAtDirection);
                 effectTranslation = ((Vector3) paramMap[ParameterKey.COLLISION_POINT]);
                 effectTranslation += collisionNormal * 0.001f;
-                effect.SetTranslation(effectTranslation);
+                effect.Translation = effectTranslation;
             }
         }
     }

@@ -1,3 +1,5 @@
+using System.Text;
+
 using Godot;
 
 
@@ -15,8 +17,9 @@ public class SignalUtil
 
         if(!signalInfo.IsDataReceived())
         {
-            GD.PushError(signal + " emitted by " + emitter.GetName() +
-                    " could not return a value!");
+            StringBuilder msg = new StringBuilder(signal).Append(" emitted by ");
+            msg.Append(emitter.Name).Append(" could not return a value!");
+            GD.PushError(msg.ToString());
         }
         else
             response = signalInfo.GetData<T>();

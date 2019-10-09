@@ -7,7 +7,7 @@ public class CharacterLook : Node
     {
         if(mouseMove.Length() > 0)
         {
-            look = head.GetRotationDegrees();
+            look = head.RotationDegrees;
             look.x += Mathf.Deg2Rad(-mouseMove.y) * lookSpeed;
             look.y += Mathf.Deg2Rad(-mouseMove.x) * lookSpeed;
 
@@ -16,10 +16,10 @@ public class CharacterLook : Node
             else if(look.x < lookDownMaxAngle)
                 look.x = lookDownMaxAngle;
 
-            head.SetRotationDegrees(look);
+            head.RotationDegrees = look;
         }
         
-        mouseMove.Set(0f, 0f);
+        mouseMove = Vector2.Zero;
     }
 
     private void Initialize()

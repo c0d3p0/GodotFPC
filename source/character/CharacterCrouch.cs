@@ -5,24 +5,37 @@ public class CharacterCrouch : Node
 {
     private void SetShapesHeight(float height)
     {
-        physicShape.SetHeight(height);
-        Vector3 extents = interactionShape.GetExtents();
+        physicShape.Height = height;
+        Vector3 extents = interactionShape.Extents;
         extents.y = height + (physicShape.Radius * 2);
-        interactionShape.SetExtents(extents);
+        interactionShape.Extents = extents;
     }
 
     private void SetTranslationY(int direction)
     {
         float translationY = direction * (crouchHeight / 2f);
-        Vector3 translation = head.GetTranslation();
+        Vector3 translation = head.Translation;
         translation.y += translationY;
-        head.SetTranslation(translation);
-        translation.Set(0f, translationY, 0f);
+        head.Translation = translation;
+        translation = new Vector3(0f, translationY, 0f);
         EmitSignal(SignalKey.SET_DESIRED_TRANSLATION, translation);
     }
 
-    private void SetCrouchFlags(bool active)
+    private void Crouch(bool active)
     {
+        if(active)
+        {
+            SetShapesHeight(crouchHeight);
+            SetTranslationY(-1);
+            EmitSignal(SignalKey.SET_FORCED_MOVE_SPEED, crouchSpeed);
+        }
+        else
+        {
+            SetTranslationY(1);
+            SetShapesHeight(standHeight);
+            EmitSignal(SignalKey.SET_FORCED_MOVE_SPEED, 0f);
+        }
+
         crouched = active;
     }
 
@@ -31,23 +44,16 @@ public class CharacterCrouch : Node
         if(Input.IsActionPressed(PlayerInput.P1_CROUCH) && kinematicBody.IsOnFloor())
         {
             if(!crouched)
-            {
-                SetShapesHeight(crouchHeight);
-                SetTranslationY(-1);
-                SetCrouchFlags(true);
-            }
+                Crouch(true);
         }
         else if(crouched && !headRayCast.IsColliding())
-        {
-            SetTranslationY(1);
-            SetShapesHeight(standHeight);
-            SetCrouchFlags(false);
-        }
+            Crouch(false);
     }
 
     private void Initialize()
     {
         AddUserSignal(SignalKey.SET_DESIRED_TRANSLATION);
+        AddUserSignal(SignalKey.SET_FORCED_MOVE_SPEED);
         kinematicBody = GetNode<KinematicBody>(kinematicBodyNP);
         head = GetNode<Spatial>(headNP);
         headRayCast = GetNode<RayCast>(headRayCastNP);
@@ -57,10 +63,6 @@ public class CharacterCrouch : Node
                 Shape as BoxShape;
     }
 
-    public void IsCrouched(Godot.Object response)
-    {
-        response.EmitSignal(SignalKey.SET_DATA, crouched);
-    }
 
     public override void _PhysicsProcess(float physicsDelta)
     {
@@ -95,6 +97,9 @@ public class CharacterCrouch : Node
 
     [Export]
     public float crouchHeight = 0.4f;
+
+    [Export]
+    public float crouchSpeed = 3f;
 
 
     private KinematicBody kinematicBody;

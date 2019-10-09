@@ -31,13 +31,11 @@ shape = SubResource( 1 )
 [node name="Area" type="Area" parent="." groups=[
 "player_character",
 ]]
-editor/display_folded = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 shape = SubResource( 2 )
 
 [node name="Head" type="Spatial" parent="."]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0 )
 
 [node name="Camera" type="Camera" parent="Head"]

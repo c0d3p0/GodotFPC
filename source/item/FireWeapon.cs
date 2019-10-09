@@ -50,8 +50,8 @@ public class FireWeapon : Item
     private void CalculateTrajectoryAngle()
     {
         rng.Randomize();
-        rotationDegrees.Set(characterBody.GetRotationDegrees());
-        rotationDegrees += characterHead.GetRotationDegrees();
+        rotationDegrees = characterBody.RotationDegrees;
+        rotationDegrees += characterHead.RotationDegrees;
         rotationDegrees.y += rng.RandfRange(-actualRecoil.x, actualRecoil.x);
         rotationDegrees.x += actualRecoil.y + (actualRecoil.Normalized().y *
                 rng.RandfRange(-recoilStep.y / 2, recoilStep.y / 2));
@@ -59,8 +59,8 @@ public class FireWeapon : Item
 
     private void ExecuteTrajectoryCast()
     {
-        trajectoryRayCast.SetTranslation(characterHead.GetTranslation());
-        trajectoryRayCast.SetRotationDegrees(rotationDegrees);
+        trajectoryRayCast.Translation = characterHead.Translation;
+        trajectoryRayCast.RotationDegrees = rotationDegrees;
         trajectoryRayCast.ForceRaycastUpdate();
     }
 
@@ -110,8 +110,8 @@ public class FireWeapon : Item
 
     private void ResetRecoil()
     {
-        actualRecoverRecoil.Set(recoilRecoverMaximum);
-        actualRecoil.Set(0f, 0f);
+        actualRecoverRecoil = recoilRecoverMaximum;
+        actualRecoil = Vector2.Zero;
     }
 
     private void EmitWeaponDamageSignal()
@@ -123,14 +123,14 @@ public class FireWeapon : Item
         paramMap.Add(ParameterKey.COLLISION_NORMAL,
                 trajectoryRayCast.GetCollisionNormal());
         paramMap.Add(ParameterKey.DAMAGED_NODE,
-            (trajectoryRayCast.GetCollider() as Node).GetParent());
+                (trajectoryRayCast.GetCollider() as Node).GetParent());
         globalSignal.EmitSignal(SignalKey.ON_WEAPON_DAMAGE, paramMap);
     }
 
     private void EmitWeaponDataChangedSignal()
     {
         paramMap.Clear();
-        paramMap.Add(ParameterKey.WEAPON_NAME, rootNode.GetName());
+        paramMap.Add(ParameterKey.WEAPON_NAME, rootNode.Name);
         paramMap.Add(ParameterKey.AIM_VISIBLE, true);
         paramMap.Add(ParameterKey.CLIP_AMMO_AMOUNT, clipAmmoAmount.ToString());
         paramMap.Add(ParameterKey.AMMO_AMOUNT, ammoAmount.ToString());
@@ -144,8 +144,8 @@ public class FireWeapon : Item
         trajectoryRayCast = GetNode<RayCast>(trajectoryRayCastNP);
         fireRateTimer = GetNode<Timer>(fireRateTimerNP);
         reloadTimer = GetNode<Timer>(reloadTimerNP);
-        fireRateTimer.SetWaitTime(fireRate);
-        reloadTimer.SetWaitTime(reloadTime);
+        fireRateTimer.WaitTime = fireRate;
+        reloadTimer.WaitTime = reloadTime;
         ammoAmount = ammoAmount > maximumAmmoAmount ? maximumAmmoAmount : ammoAmount;
         clipAmmoAmount = clipAmmoAmount > clipSize ? clipSize : clipAmmoAmount;
         rng = new RandomNumberGenerator();

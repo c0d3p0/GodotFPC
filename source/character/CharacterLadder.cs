@@ -7,9 +7,9 @@ public class CharacterLadder : Node
     {
         if(ladder != null)
 		{
-            targetVelocity.Set(0f, 0f, 0f);
+            targetVelocity = Vector3.Zero;
             direction = SignalUtil.Emit<Vector3>(this, SignalKey.GET_DIRECTION);
-            headBasis = head.GetGlobalTransform().basis;
+            headBasis = head.GlobalTransform.basis;
             targetVelocity += direction.x * headBasis.x;
             targetVelocity += direction.z * headBasis.z;
             targetVelocity = targetVelocity.Normalized();

@@ -15,7 +15,7 @@ public class CharacterPhysics : Node
         {
             maswsVelocity = kinematicBody.MoveAndSlideWithSnap(maswsDesiredVelocity,
                     new Vector3(0f, -0.5f, 0f), Vector3.Up, true, 1, slopeAngle);
-            maswsDesiredVelocity.Set(0f, 0f, 0f);
+            maswsDesiredVelocity = Vector3.Zero;
         }
     }
 
@@ -25,7 +25,7 @@ public class CharacterPhysics : Node
         {
             masVelocity = kinematicBody.MoveAndSlide(masDesiredVelocity,
                     Vector3.Up, true, 1, slopeAngle);
-            masDesiredVelocity.Set(0f, 0f, 0f);
+            masDesiredVelocity = Vector3.Zero;
         }
     }
 
@@ -34,7 +34,7 @@ public class CharacterPhysics : Node
         if(desiredTranslation.Length() > 0)
         {
             kinematicBody.MoveAndCollide(desiredTranslation);
-            desiredTranslation.Set(0f, 0f, 0f);
+            desiredTranslation = Vector3.Zero;
         }
     }
 
@@ -45,7 +45,9 @@ public class CharacterPhysics : Node
 
     public void SetMoveAndSlideWithSnapVelocity(float x, float y, float z)
     {
-        this.maswsDesiredVelocity.Set(x, y, z);
+        this.maswsDesiredVelocity.x = x;
+        this.maswsDesiredVelocity.y = y;
+        this.maswsDesiredVelocity.z = z;
     }
 
     public void SetMoveAndSlideVelocity(Vector3 desiredVelocity)
@@ -55,7 +57,9 @@ public class CharacterPhysics : Node
 
     public void SetMoveAndSlideVelocity(float x, float y, float z)
     {
-        this.masDesiredVelocity.Set(x, y, z);
+        this.masDesiredVelocity.x = x;
+        this.masDesiredVelocity.y = y;
+        this.masDesiredVelocity.z = z;
     }
 
     public void SetDesiredTranslation(Vector3 desiredTranslation)
@@ -65,7 +69,9 @@ public class CharacterPhysics : Node
 
     public void SetDesiredTranslation(float x, float y, float z)
     {
-        this.desiredTranslation.Set(x, y, z);
+        this.desiredTranslation.x = x;
+        this.desiredTranslation.y = y;
+        this.desiredTranslation.z = z;
     }
 
     public void SetGravityEnabled(bool enabled)

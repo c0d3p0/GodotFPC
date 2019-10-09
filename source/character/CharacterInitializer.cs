@@ -36,8 +36,6 @@ public class CharacterInitializer : Node
                 characterPhysics, SignalMethod.GET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY);
         characterMove.Connect(SignalKey.SET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY,
                 characterPhysics, SignalMethod.SET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY);
-        characterMove.Connect(SignalKey.IS_CROUCHED, characterCrouch,
-				SignalMethod.IS_CROUCHED);
     }
 
     private void InitializeCharacterJump()
@@ -52,6 +50,8 @@ public class CharacterInitializer : Node
     {
         characterCrouch.Connect(SignalKey.SET_DESIRED_TRANSLATION,
                 characterPhysics, SignalMethod.SET_DESIRED_TRANSLATION);
+        characterCrouch.Connect(SignalKey.SET_FORCED_MOVE_SPEED,
+                characterMove, SignalMethod.SET_FORCED_MOVE_SPEED);
     }
 
     public override void _EnterTree()

@@ -5,9 +5,9 @@ public class CharacterMove : Node
 {
     private void ApplyMovement(float delta)
     {
-        targetVelocity.Set(0f, 0f, 0f);
+        targetVelocity = Vector3.Zero;
         direction = SignalUtil.Emit<Vector3>(this, SignalKey.GET_DIRECTION).
-                Rotated(Vector3.Up, head.GetRotation().y);
+                Rotated(Vector3.Up, head.Rotation.y);
 
         if(direction.x != 0f && direction.z != 0f)
             targetVelocity = direction * GetMoveSpeed() * diagonalMoveFactor;
@@ -24,11 +24,11 @@ public class CharacterMove : Node
 
     private float GetMoveSpeed()
     {
-        if(Input.IsActionPressed(PlayerInput.P1_WALK) ||
-                SignalUtil.Emit<bool>(this, SignalKey.IS_CROUCHED))
-        {
+        if(forcedMoveSpeed > 0f)
+            return forcedMoveSpeed;
+        
+        if(Input.IsActionPressed(PlayerInput.P1_WALK))
             return walkSpeed;
-        }
 
         return runSpeed;
     }
@@ -41,13 +41,17 @@ public class CharacterMove : Node
             return deacceleration;
     }
 
+    private void SetForcedMoveSpeed(float forcedMoveSpeed)
+    {
+        this.forcedMoveSpeed = forcedMoveSpeed;
+    }
+
     private void Initialize()
     {
         head = GetNode<Spatial>(headNP);
         AddUserSignal(SignalKey.GET_DIRECTION);
         AddUserSignal(SignalKey.GET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY);
         AddUserSignal(SignalKey.SET_MOVE_AND_SLIDE_WITH_SNAP_VELOCITY);
-        AddUserSignal(SignalKey.IS_CROUCHED);
     }
 
     public override void _PhysicsProcess(float physicsDelta)
@@ -84,4 +88,5 @@ public class CharacterMove : Node
     private Vector3 direction;
 
     private float diagonalMoveFactor = 0.7071f;
+    private float forcedMoveSpeed;
 }

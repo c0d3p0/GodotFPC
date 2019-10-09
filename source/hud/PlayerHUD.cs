@@ -11,10 +11,10 @@ public class PlayerHUD : Node
     {
         if(paramMap != null)
         {
-            weaponNameLabel.SetText(GetText(paramMap, ParameterKey.WEAPON_NAME));
-            aimTextureRect.SetVisible(GetBool(paramMap, ParameterKey.AIM_VISIBLE));
-            ammoLabel.SetText(GetAmmoText(paramMap));
-            reloadingLabel.SetVisible(GetBool(paramMap, ParameterKey.RELOADING));
+            weaponNameLabel.Text = GetText(paramMap, ParameterKey.WEAPON_NAME);
+            aimTextureRect.Visible = GetBool(paramMap, ParameterKey.AIM_VISIBLE);
+            ammoLabel.Text = GetAmmoText(paramMap);
+            reloadingLabel.Visible = GetBool(paramMap, ParameterKey.RELOADING);
         }
     }
 
